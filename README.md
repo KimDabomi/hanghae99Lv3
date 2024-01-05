@@ -4,7 +4,7 @@
 ## API 명세서
 ![API image](./src/main/resources/images/lv3API.png)
 ## ERD
-![ERD image](./src/main/resources/images/lv3ERD.png)
+![ERD image](./src/main/resources/images/lv3ERD.PNG)
 # 구현 기능
 - [ ]  관리자 가입 기능
     - `이메일`, `비밀번호`, `부서`, `권한`을 저장할 수 있습니다.
