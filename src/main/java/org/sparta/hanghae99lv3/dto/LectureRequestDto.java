@@ -1,4 +1,4 @@
 package org.sparta.hanghae99lv3.dto;
 
-public class ClassRequestDto {
+public class LectureRequestDto {
 }
