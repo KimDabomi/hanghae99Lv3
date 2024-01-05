@@ -1,8 +1,8 @@
 package org.sparta.hanghae99lv3.entity;
 
 public enum StaffAuthEnum {
-    STAFF(Authority.STAFF),  // 사용자 권한
-    ADMIN(Authority.ADMIN);  // 관리자 권한
+    STAFF(Authority.STAFF),
+    ADMIN(Authority.ADMIN);
 
     private final String authority;
 

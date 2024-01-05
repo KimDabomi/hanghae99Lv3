@@ -3,6 +3,7 @@ package org.sparta.hanghae99lv3.service;
 import org.sparta.hanghae99lv3.dto.TeacherRequestDto;
 import org.sparta.hanghae99lv3.dto.TeacherResponseDto;
 import org.sparta.hanghae99lv3.entity.Teacher;
+import org.sparta.hanghae99lv3.message.ErrorMessage;
 import org.sparta.hanghae99lv3.repository.TeacherRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,7 +43,7 @@ public class TeacherService {
 
     private Teacher findTeacher(Long id) {
         return teacherRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("해당 강사는 존재하지 않습니다.")
+                new IllegalArgumentException(ErrorMessage.EXIST_TEACHER_ERROR_MESSAGE.getErrorMessage())
         );
     }
 }

@@ -7,6 +7,7 @@ import org.sparta.hanghae99lv3.dto.StaffRequestDto;
 import org.sparta.hanghae99lv3.entity.Staff;
 import org.sparta.hanghae99lv3.entity.StaffAuthEnum;
 import org.sparta.hanghae99lv3.jwt.JwtUtil;
+import org.sparta.hanghae99lv3.message.ErrorMessage;
 import org.sparta.hanghae99lv3.repository.StaffRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,13 +35,13 @@ public class StaffService {
         Matcher matcher = pattern.matcher(email);
 
         if (!matcher.matches()) {
-            throw new IllegalArgumentException("올바른 이메일 형식이 아닙니다.");
+            throw new IllegalArgumentException(ErrorMessage.EMAIL_FORMAT_ERROR_MESSAGE.getErrorMessage());
         }
 
         Pattern passwordPattern = Pattern.compile(PASSWORD_PATTERN);
         Matcher passwordMatcher = passwordPattern.matcher(password);
         if (!passwordMatcher.matches()) {
-            throw new IllegalArgumentException("비밀번호는 최소 8자 이상, 15자 이하이며 알파벳 대소문자, 숫자, 특수문자로 구성되어야 합니다.");
+            throw new IllegalArgumentException(ErrorMessage.PASSWORD_VALIDATION_ERROR_MESSAGE.getErrorMessage());
         }
 
         String encodedPassword = passwordEncoder.encode(password);
@@ -53,18 +54,15 @@ public class StaffService {
         String email = requestDto.getEmail();
         String password = requestDto.getPassword();
 
-        // 사용자 확인
         Staff staff = staffRepository.findByEmail(email);
         if (staff.getId() == null) {
-            throw new IllegalArgumentException("존재하지 않는 회원입니다.");
+            throw new IllegalArgumentException(ErrorMessage.EXIST_STAFF_ERROR_MESSAGE.getErrorMessage());
         }
 
-        // 비밀번호 확인
         if(!passwordEncoder.matches(password, staff.getPassword())) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            throw new IllegalArgumentException(ErrorMessage.PASSWORD_MISMATCH_ERROR_MESSAGE.getErrorMessage());
         }
 
-        // JWT 생성 및 쿠키에 저장 후 Response 객체에 추가
         String token = jwtUtil.createToken(staff.getEmail(), staff.getAuth());
         jwtUtil.addJwtToCookie(token, res);
     }

@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.sparta.hanghae99lv3.entity.Staff;
 import org.sparta.hanghae99lv3.entity.StaffAuthEnum;
 import org.sparta.hanghae99lv3.jwt.JwtUtil;
+import org.sparta.hanghae99lv3.message.ErrorMessage;
 import org.sparta.hanghae99lv3.repository.StaffRepository;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -38,24 +39,24 @@ public class AuthFilter implements Filter {
         String tokenValue = jwtUtil.getTokenFromRequest(httpServletRequest);
 
         if (!StringUtils.hasText(tokenValue)) {
-            throw new IllegalArgumentException("토큰을 찾을 수 없습니다.");
+            throw new IllegalArgumentException(ErrorMessage.EXIST_TOKEN_ERROR_MESSAGE.getErrorMessage());
         }
 
         String token = jwtUtil.substringToken(tokenValue);
 
         if (!jwtUtil.validateToken(token)) {
-            throw new IllegalArgumentException("토큰을 찾을 수 없습니다.");
+            throw new IllegalArgumentException(ErrorMessage.EXIST_TOKEN_ERROR_MESSAGE.getErrorMessage());
         }
 
         Claims info = jwtUtil.getUserInfoFromToken(token);
 
         Staff staff = staffRepository.findByEmail(info.getSubject());
         if (staff.getId() == null) {
-            throw new IllegalArgumentException("존재하지 않는 회원입니다.");
+            throw new IllegalArgumentException(ErrorMessage.EXIST_STAFF_ERROR_MESSAGE.getErrorMessage());
         }
 
         if (!StaffAuthEnum.ADMIN.equals(staff.getAuth())) {
-            throw new IllegalArgumentException("권한이 없습니다.");
+            throw new IllegalArgumentException(ErrorMessage.AUTH_ERROR_MESSAGE.getErrorMessage());
         }
 
         request.setAttribute("staff", staff);

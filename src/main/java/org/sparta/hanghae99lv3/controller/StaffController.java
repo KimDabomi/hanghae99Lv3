@@ -3,6 +3,7 @@ package org.sparta.hanghae99lv3.controller;
 import jakarta.servlet.http.HttpServletResponse;
 import org.sparta.hanghae99lv3.dto.LoginRequestDto;
 import org.sparta.hanghae99lv3.dto.StaffRequestDto;
+import org.sparta.hanghae99lv3.message.SuccessMessage;
 import org.sparta.hanghae99lv3.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,21 +21,30 @@ public class StaffController {
 
     @PostMapping("/join")
     public ResponseEntity<String> createStaff(@RequestBody StaffRequestDto requestDto) {
-        try {
+        return handleRequest(() -> {
             staffService.createStaff(requestDto);
-            return new ResponseEntity<>("회원가입이 완료되었습니다.", HttpStatus.CREATED);
+            return new ResponseEntity<>(SuccessMessage.JOIN_SUCCESS_MESSAGE.getSuccessMessage(), HttpStatus.CREATED);
+        });
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginRequestDto requestDto, HttpServletResponse res) {
+        return handleRequest(() -> {
+            staffService.login(requestDto, res);
+            return new ResponseEntity<>(SuccessMessage.LOGIN_SUCCESS_MESSAGE.getSuccessMessage(), HttpStatus.ACCEPTED);
+        });
+    }
+
+    private ResponseEntity<String> handleRequest(RequestHandler handler) {
+        try {
+            return handler.handle();
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequestDto requestDto, HttpServletResponse res) {
-        try {
-            staffService.login(requestDto, res);
-            return new ResponseEntity<>("로그인이 완료되었습니다.", HttpStatus.ACCEPTED);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    @FunctionalInterface
+    private interface RequestHandler {
+        ResponseEntity<String> handle();
     }
 }

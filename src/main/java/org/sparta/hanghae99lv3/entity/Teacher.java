@@ -8,7 +8,6 @@ import org.sparta.hanghae99lv3.dto.TeacherRequestDto;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 @Table(name = "teacher")
 public class Teacher {
