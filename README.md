@@ -1,10 +1,10 @@
 # Lv3. 관리자 백오피스 서버 만들기
 ## Use Case Diagram
-![UCD image](./src/main/resources/images/lv3UCD.png)
+![UCD image](./src/main/resources/static/images/lv3UCD.png)
 ## API 명세서
-![API image](./src/main/resources/images/lv3API.png)
+![API image](./src/main/resources/static/images/lv3API.png)
 ## ERD
-![ERD image](./src/main/resources/images/lv3ERD.PNG)
+![ERD image](./src/main/resources/static/images/lv3ERD.PNG)
 # 구현 기능
 - [x]  관리자 가입 기능
     - `이메일`, `비밀번호`, `부서`, `권한`을 저장할 수 있습니다.
