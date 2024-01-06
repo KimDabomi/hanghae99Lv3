@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.sparta.hanghae99lv3.dto.LoginRequestDto;
 import org.sparta.hanghae99lv3.entity.StaffAuthEnum;
+import org.sparta.hanghae99lv3.message.ErrorMessage;
 import org.sparta.hanghae99lv3.security.StaffDetailsImpl;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -52,7 +53,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         log.info(LOGIN_SUCCESS_AND_JWT_TOKEN_CREATION_LOG);
         String email = ((StaffDetailsImpl) authResult.getPrincipal()).getUsername();
         StaffAuthEnum auth = ((StaffDetailsImpl) authResult.getPrincipal()).getStaff().getAuth();
-
         String token = jwtUtil.createToken(email, auth);
         jwtUtil.addJwtToCookie(token, response);
     }

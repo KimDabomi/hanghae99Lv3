@@ -11,7 +11,9 @@ public enum ErrorMessage {
     EMPTY_JWT_ERROR_MESSAGE("JWT claims is empty, 잘못된 JWT 토큰 입니다."),
     EMAIL_FORMAT_ERROR_MESSAGE("올바른 이메일 형식이 아닙니다."),
     PASSWORD_VALIDATION_ERROR_MESSAGE("비밀번호는 최소 8자 이상, 15자 이하이며 알파벳 대소문자, 숫자, 특수문자로 구성되어야 합니다."),
-    PASSWORD_MISMATCH_ERROR_MESSAGE("비밀번호가 일치하지 않습니다.");
+    PASSWORD_MISMATCH_ERROR_MESSAGE("비밀번호가 일치하지 않습니다."),
+    AUTH_EXCEPTION_MESSAGE("관리자만 가능한 동작입니다.");
+
     private final String errorMessage;
 
     ErrorMessage(String errorMessage) {

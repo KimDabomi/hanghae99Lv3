@@ -5,11 +5,12 @@ import org.sparta.hanghae99lv3.jwt.JwtAuthenticationFilter;
 import org.sparta.hanghae99lv3.jwt.JwtAuthorizationFilter;
 import org.sparta.hanghae99lv3.jwt.JwtUtil;
 import org.sparta.hanghae99lv3.security.StaffDetailsServiceImpl;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -19,6 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig {
 
     private final JwtUtil jwtUtil;
@@ -51,11 +53,16 @@ public class WebSecurityConfig {
                 sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         );
 
-        http.authorizeHttpRequests((authorizeHttpRequests) ->
+        http.authorizeHttpRequests((authorizeHttpRequests)->
                 authorizeHttpRequests
-                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers("/api/login").permitAll()
-                        .requestMatchers( "/api/join").permitAll()
+                        .requestMatchers("/api/join").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/teachers").hasAnyAuthority("AUTH_ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/teachers/**").hasAnyAuthority("AUTH_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/teachers/**").hasAnyAuthority("AUTH_ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/lectures").hasAnyAuthority("AUTH_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/lectures/**").hasAnyAuthority("AUTH_ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/lectures/**").hasAnyAuthority("AUTH_ADMIN")
                         .anyRequest().authenticated()
         );
 
