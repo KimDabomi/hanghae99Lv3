@@ -8,19 +8,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.sparta.hanghae99lv3.dto.LoginRequestDto;
 import org.sparta.hanghae99lv3.entity.StaffAuthEnum;
-import org.sparta.hanghae99lv3.message.ErrorMessage;
 import org.sparta.hanghae99lv3.message.SuccessMessage;
 import org.sparta.hanghae99lv3.security.StaffDetailsImpl;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @Slf4j(topic = "로그인 및 JWT 생성")
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {

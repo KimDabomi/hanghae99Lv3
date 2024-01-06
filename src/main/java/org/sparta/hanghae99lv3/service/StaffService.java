@@ -1,12 +1,9 @@
 package org.sparta.hanghae99lv3.service;
 
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.sparta.hanghae99lv3.dto.LoginRequestDto;
 import org.sparta.hanghae99lv3.dto.StaffRequestDto;
 import org.sparta.hanghae99lv3.entity.Staff;
 import org.sparta.hanghae99lv3.entity.StaffAuthEnum;
-import org.sparta.hanghae99lv3.jwt.JwtUtil;
 import org.sparta.hanghae99lv3.message.ErrorMessage;
 import org.sparta.hanghae99lv3.repository.StaffRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
