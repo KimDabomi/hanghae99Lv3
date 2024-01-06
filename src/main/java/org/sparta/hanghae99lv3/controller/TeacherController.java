@@ -16,22 +16,22 @@ public class TeacherController {
         this.teacherService = teacherService;
     }
 
-    @PostMapping("/teacher")
+    @PostMapping("/teachers")
     public TeacherResponseDto createTeacher(@RequestBody TeacherRequestDto requestDto) {
         return teacherService.createTeacher(requestDto);
     }
 
-    @GetMapping("/teacher/{teacherId}")
+    @GetMapping("/teachers/{teacherId}")
     public Teacher getTeacher(@PathVariable Long teacherId, @RequestBody TeacherRequestDto requestDto) {
         return teacherService.getTeacher(teacherId, requestDto);
     }
 
-    @PutMapping("/teacher/{teacherId}")
+    @PutMapping("/teachers/{teacherId}")
     public Teacher updateTeacher(@PathVariable Long teacherId, @RequestBody TeacherRequestDto requestDto) {
         return teacherService.updateTeacher(teacherId, requestDto);
     }
 
-    @DeleteMapping("/teacher/{teacherId}")
+    @DeleteMapping("/teachers/{teacherId}")
     public ResponseEntity<String> deleteTeacher(@PathVariable Long teacherId) {
         return teacherService.deleteTeacher(teacherId);
     }

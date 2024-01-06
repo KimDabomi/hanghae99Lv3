@@ -17,31 +17,31 @@ public class LectureController {
 
     private final LectureService lectureService;
 
-    @PostMapping("lecture")
+    @PostMapping("/lectures")
     public ResponseEntity<LectureResponseDto> createLecture(@RequestBody LectureRequestDto lectureRequestDto){
         LectureResponseDto lectureResponseDto = lectureService.createLecture(lectureRequestDto);
         return ResponseEntity.ok(lectureResponseDto);
     }
 
-    @GetMapping("/lecture/{lectureId}")
+    @GetMapping("/lectures/{lectureId}")
     public ResponseEntity<LectureResponseDto> getLecture(@PathVariable Long lectureId){
         LectureResponseDto lectureResponseDto = lectureService.getLecture(lectureId);
         return ResponseEntity.ok(lectureResponseDto);
     }
 
-    @GetMapping("/lecture/teacher/{teacherId}")
+    @GetMapping("/lectures/teachers/{teacherId}")
     public ResponseEntity<List<LectureResponseDto>> getLectureListForTeacher(@PathVariable Long teacherId){
         List<LectureResponseDto> lectureResponseDtoList = lectureService.getLectureListForTeacher(teacherId);
         return ResponseEntity.ok(lectureResponseDtoList);
     }
 
-    @GetMapping("/lecture")
+    @GetMapping("/lectures")
     public ResponseEntity<List<LectureResponseDto>> getLectureListForCategory(@RequestParam String category){
         List<LectureResponseDto> lectureResponseDtoList = lectureService.getLectureListForCategory(category);
         return ResponseEntity.ok(lectureResponseDtoList);
     }
 
-    @PutMapping("/lecture/{lectureId}")
+    @PutMapping("/lectures/{lectureId}")
     public ResponseEntity<LectureResponseDto> updateLecture(@PathVariable Long lectureId, @RequestBody LectureRequestDto lectureRequestDto){
         LectureResponseDto lectureResponseDto = lectureService.updateLecture(lectureId, lectureRequestDto);
         return ResponseEntity.ok(lectureResponseDto);
