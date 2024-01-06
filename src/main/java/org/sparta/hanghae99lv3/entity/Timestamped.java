@@ -1,14 +1,10 @@
-package com.example.lv02.entity;
-
+package org.sparta.hanghae99lv3.entity;
 
 import jakarta.persistence.*;
-
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -20,5 +16,4 @@ public abstract class Timestamped {
     @Column(updatable = false)
     @Temporal(TemporalType.DATE)
     private Date regiDate;
-
 }

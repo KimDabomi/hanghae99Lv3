@@ -37,7 +37,6 @@ public class TeacherService {
         return findTeacher(id);
     }
 
-    @Transactional
     public Teacher updateTeacher(Long id, TeacherRequestDto requestDto) {
         Teacher teacher = findTeacher(id);
         teacher.update(requestDto);

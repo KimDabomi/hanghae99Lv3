@@ -3,18 +3,13 @@ package org.sparta.hanghae99lv3.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.sparta.hanghae99lv3.dto.LectureRequestDto;
-import org.springframework.data.annotation.CreatedDate;
-
-import java.util.Date;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 @Table(name = "lecture")
-public class Lecture extends com.example.lv02.entity.Timestamped {
+public class Lecture extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long lectureId;

@@ -3,13 +3,11 @@ package org.sparta.hanghae99lv3.controller;
 import lombok.RequiredArgsConstructor;
 import org.sparta.hanghae99lv3.dto.LectureRequestDto;
 import org.sparta.hanghae99lv3.dto.LectureResponseDto;
-import org.sparta.hanghae99lv3.message.ErrorMessage;
 import org.sparta.hanghae99lv3.service.LectureService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
 import java.util.List;
 
 @Controller

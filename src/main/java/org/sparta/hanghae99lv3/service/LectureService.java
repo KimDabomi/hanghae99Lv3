@@ -64,6 +64,4 @@ public class LectureService {
         lectureRepository.delete(lecture);
         return lectureId;
     }
-
-
 }
