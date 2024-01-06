@@ -72,7 +72,7 @@
     - 선택한 강사를 삭제할 수 있습니다.
         - 로그인을 통해 발급받은 JWT가 함께 요청됩니다.
         - MANAGER  권한을 가진 관리자만 강사 삭제가 가능합니다.
-- [ ]  Spring Security를 적용하여 인증/인가를 구현합니다.
+- [x]  Spring Security를 적용하여 인증/인가를 구현합니다.
     - Security의 Secured 기능을 사용하여 권한별로 API를 제어할 수 있습니다.
 - [ ]  swagger를 구글링해 보고 프로젝트에 적용해 보세요!
     - swagger란? Open Api Specification(OAS)를 위한 프레임워크 입니다.
