@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Getter
 public class LectureResponseDto {
+    private Long lectureId;
     private Teacher teacher;
     private String lectureName;
     private Integer price;
@@ -16,6 +17,7 @@ public class LectureResponseDto {
     private Date regiDate;
 
     public LectureResponseDto(Lecture saveLecture) {
+        this.lectureId = saveLecture.getLectureId();
         this.teacher = saveLecture.getTeacher();
         this.lectureName = saveLecture.getLectureName();
         this.price = saveLecture.getPrice();
