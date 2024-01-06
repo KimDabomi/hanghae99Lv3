@@ -47,9 +47,8 @@ public class LectureController {
         return ResponseEntity.ok(lectureResponseDto);
     }
 
-    @DeleteMapping("/lecture/{lectureId}")
-    public ResponseEntity<Long> deleteLecture(@PathVariable Long lectureId){
-        Long id = lectureService.deleteLecture(lectureId);
-        return ResponseEntity.ok(id);
+    @DeleteMapping("/lectures/{lectureId}")
+    public ResponseEntity<String> deleteLecture(@PathVariable Long lectureId){
+        return lectureService.deleteLecture(lectureId);
     }
 }

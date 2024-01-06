@@ -20,7 +20,6 @@ import java.util.regex.Pattern;
 public class StaffService {
     private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     private static final String PASSWORD_PATTERN = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,15}$";
-
     private final StaffRepository staffRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;

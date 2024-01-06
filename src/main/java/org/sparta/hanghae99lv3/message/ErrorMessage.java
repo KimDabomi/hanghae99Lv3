@@ -5,7 +5,6 @@ public enum ErrorMessage {
     EXIST_STAFF_ERROR_MESSAGE("존재하지 않는 관리자입니다."),
     EXIST_TEACHER_ERROR_MESSAGE("존재하지 않는 강사입니다."),
     EXIST_LECTURE_ERROR_MESSAGE("존재하지 않는 강의입니다."),
-    AUTH_ERROR_MESSAGE("권한이 없습니다."),
     INVALID_JWT_ERROR_MESSAGE("Invalid JWT signature, 유효하지 않는 JWT 서명 입니다."),
     EXPIRED_JWT_ERROR_MESSAGE("Expired JWT token, 만료된 JWT token 입니다."),
     UNSUPPORTED_JWT_ERROR_MESSAGE("Unsupported JWT token, 지원되지 않는 JWT 토큰 입니다."),

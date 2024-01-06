@@ -7,17 +7,18 @@ import org.sparta.hanghae99lv3.dto.LectureResponseDto;
 import org.sparta.hanghae99lv3.entity.Lecture;
 import org.sparta.hanghae99lv3.entity.Teacher;
 import org.sparta.hanghae99lv3.message.ErrorMessage;
+import org.sparta.hanghae99lv3.message.SuccessMessage;
 import org.sparta.hanghae99lv3.repository.LectureRepository;
 import org.sparta.hanghae99lv3.repository.TeacherRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class LectureService {
-
     private final LectureRepository lectureRepository;
     private final TeacherRepository teacherRepository;
 
@@ -59,9 +60,9 @@ public class LectureService {
         return new LectureResponseDto(lecture);
     }
 
-    public Long deleteLecture(Long lectureId) {
+    public ResponseEntity<String> deleteLecture(Long lectureId) {
         Lecture lecture = findLecture(lectureId);
         lectureRepository.delete(lecture);
-        return lectureId;
+        return ResponseEntity.status(HttpStatus.OK).body(SuccessMessage.DELETE_SUCCESS_MESSAGE.getSuccessMessage());
     }
 }
