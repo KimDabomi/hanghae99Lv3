@@ -4,6 +4,7 @@ import org.sparta.hanghae99lv3.dto.TeacherRequestDto;
 import org.sparta.hanghae99lv3.dto.TeacherResponseDto;
 import org.sparta.hanghae99lv3.entity.Teacher;
 import org.sparta.hanghae99lv3.service.TeacherService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,7 +32,7 @@ public class TeacherController {
     }
 
     @DeleteMapping("/teacher/{teacherId}")
-    public Long deleteMemo(@PathVariable Long teacherId) {
+    public ResponseEntity<String> deleteTeacher(@PathVariable Long teacherId) {
         return teacherService.deleteTeacher(teacherId);
     }
 }

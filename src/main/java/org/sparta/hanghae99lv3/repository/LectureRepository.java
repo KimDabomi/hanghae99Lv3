@@ -11,4 +11,5 @@ public interface LectureRepository extends JpaRepository<Lecture, Long> {
 
     List<Lecture> findAllByCategoryOrderByRegiDateDesc(String category);
 
+    List<Lecture> findByTeacher(Teacher teacher);
 }
