@@ -22,7 +22,6 @@ public class StaffService {
     private static final String PASSWORD_PATTERN = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,15}$";
     private final StaffRepository staffRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtUtil jwtUtil;
 
     public void createStaff(StaffRequestDto requestDto) {
         String email = requestDto.getEmail();
@@ -30,9 +29,16 @@ public class StaffService {
         String team = requestDto.getTeam();
         StaffAuthEnum auth = StaffAuthEnum.valueOf(requestDto.getAuth());
 
+        checkEmailAndPwPattern(email, password);
+
+        String encodedPassword = passwordEncoder.encode(password);
+        Staff user = new Staff(email, encodedPassword, team, auth);
+        staffRepository.save(user);
+    }
+
+    private void checkEmailAndPwPattern(String email, String password) {
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
         Matcher matcher = pattern.matcher(email);
-
         if (!matcher.matches()) {
             throw new IllegalArgumentException(ErrorMessage.EMAIL_FORMAT_ERROR_MESSAGE.getErrorMessage());
         }
@@ -42,27 +48,5 @@ public class StaffService {
         if (!passwordMatcher.matches()) {
             throw new IllegalArgumentException(ErrorMessage.PASSWORD_VALIDATION_ERROR_MESSAGE.getErrorMessage());
         }
-
-        String encodedPassword = passwordEncoder.encode(password);
-
-        Staff user = new Staff(email, encodedPassword, team, auth);
-        staffRepository.save(user);
-    }
-
-    public void login(LoginRequestDto requestDto, HttpServletResponse res) {
-        String email = requestDto.getEmail();
-        String password = requestDto.getPassword();
-
-        Staff staff = staffRepository.findByEmail(email);
-        if (staff.getId() == null) {
-            throw new IllegalArgumentException(ErrorMessage.EXIST_STAFF_ERROR_MESSAGE.getErrorMessage());
-        }
-
-        if(!passwordEncoder.matches(password, staff.getPassword())) {
-            throw new IllegalArgumentException(ErrorMessage.PASSWORD_MISMATCH_ERROR_MESSAGE.getErrorMessage());
-        }
-
-        String token = jwtUtil.createToken(staff.getEmail(), staff.getAuth());
-        jwtUtil.addJwtToCookie(token, res);
     }
 }

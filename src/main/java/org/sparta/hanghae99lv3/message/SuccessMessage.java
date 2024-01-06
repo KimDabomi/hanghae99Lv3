@@ -14,5 +14,4 @@ public enum SuccessMessage {
     public String getSuccessMessage() {
         return "[SUCCESS] " + successMessage;
     }
-
 }
