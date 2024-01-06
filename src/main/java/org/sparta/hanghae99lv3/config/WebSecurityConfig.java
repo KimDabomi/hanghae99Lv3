@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.sparta.hanghae99lv3.jwt.JwtAuthenticationFilter;
 import org.sparta.hanghae99lv3.jwt.JwtAuthorizationFilter;
 import org.sparta.hanghae99lv3.jwt.JwtUtil;
+import org.sparta.hanghae99lv3.security.CustomAccessDeniedHandler;
 import org.sparta.hanghae99lv3.security.StaffDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -64,6 +65,11 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/lectures/**").hasAnyAuthority("AUTH_ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/lectures/**").hasAnyAuthority("AUTH_ADMIN")
                         .anyRequest().authenticated()
+        );
+
+        http.exceptionHandling((exceptionHandling) ->
+                exceptionHandling
+                        .accessDeniedHandler(new CustomAccessDeniedHandler())
         );
 
         http.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class);

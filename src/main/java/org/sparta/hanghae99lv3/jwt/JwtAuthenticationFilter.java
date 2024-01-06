@@ -9,13 +9,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.sparta.hanghae99lv3.dto.LoginRequestDto;
 import org.sparta.hanghae99lv3.entity.StaffAuthEnum;
 import org.sparta.hanghae99lv3.message.ErrorMessage;
+import org.sparta.hanghae99lv3.message.SuccessMessage;
 import org.sparta.hanghae99lv3.security.StaffDetailsImpl;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j(topic = "로그인 및 JWT 생성")
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -51,10 +56,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         log.info(LOGIN_SUCCESS_AND_JWT_TOKEN_CREATION_LOG);
+
         String email = ((StaffDetailsImpl) authResult.getPrincipal()).getUsername();
         StaffAuthEnum auth = ((StaffDetailsImpl) authResult.getPrincipal()).getStaff().getAuth();
+
         String token = jwtUtil.createToken(email, auth);
         jwtUtil.addJwtToCookie(token, response);
+
+        response.getWriter().write(SuccessMessage.LOGIN_SUCCESS_MESSAGE.getSuccessMessage());
     }
 
     @Override
