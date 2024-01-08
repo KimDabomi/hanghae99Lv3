@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
 public class TeacherService {
     private final TeacherRepository teacherRepository;
     private final LectureRepository lectureRepository;
@@ -27,6 +26,7 @@ public class TeacherService {
         this.lectureRepository = lectureRepository;
     }
 
+    @Transactional
     public TeacherResponseDto createTeacher(TeacherRequestDto requestDto) {
         Teacher teacher = new Teacher(requestDto);
         Teacher saveTeacher = teacherRepository.save(teacher);
@@ -37,6 +37,7 @@ public class TeacherService {
         return findTeacher(id);
     }
 
+    @Transactional
     public Teacher updateTeacher(Long id, TeacherRequestDto requestDto) {
         Teacher teacher = findTeacher(id);
         teacher.update(requestDto);
@@ -44,13 +45,9 @@ public class TeacherService {
         return teacher;
     }
 
+    @Transactional
     public ResponseEntity<String> deleteTeacher(Long teacherId) {
-        Optional<Teacher> optionalTeacher = teacherRepository.findById(teacherId);
-        if(optionalTeacher.isEmpty()) {
-            throw new IllegalArgumentException(ErrorMessage.EXIST_TEACHER_ERROR_MESSAGE.getErrorMessage());
-        }
-
-        Teacher teacher = optionalTeacher.get();
+        Teacher teacher = teacherRepository.findById(teacherId).orElseThrow(() -> new IllegalArgumentException(ErrorMessage.EXIST_TEACHER_ERROR_MESSAGE.getErrorMessage()));
         List<Lecture> lectures = lectureRepository.findByTeacher(teacher);
         lectureRepository.deleteAll(lectures);
         teacherRepository.delete(teacher);
